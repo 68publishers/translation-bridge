@@ -1,0 +1,49 @@
+{
+	"name": "68publishers/translation-bridge",
+	"description": "Bridges between integrations of translation component and '68publishers bundles.",
+	"keywords": ["68publishers", "translation", "translations", "bridge", "nette"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Tomáš Glawaty",
+			"email": "tomasglawaty@icloud.com"
+		}
+	],
+	"require": {
+		"php": "^7.2",
+		"nette/di": "^3.0.3",
+		"nette/utils": "^3.0"
+	},
+	"require-dev": {
+		"bamarni/composer-bin-plugin": "^1.4",
+		"friendsofphp/php-cs-fixer": "^2.0",
+		"nette/bootstrap": "^3.0",
+		"nette/tester": "^2.0",
+		"roave/security-advisories": "dev-master"
+	},
+	"suggest": {
+		"kdyby/translation": "For integration with kdyby/translation",
+		"contributte/translation": "For integration with contributte/translation"
+	},
+	"autoload": {
+		"psr-4": {
+			"SixtyEightPublishers\\TranslationBridge\\": "src/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"SixtyEightPublishers\\TranslationBridge\\Tests\\": "tests/"
+		}
+	},
+	"config": {
+		"sort-packages": true
+	},
+	"scripts": {
+		"tests": [
+			"@tests:lowest",
+			"@tests:highest"
+		],
+		"tests:lowest" : "composer update --no-progress --prefer-dist --prefer-lowest --prefer-stable && composer bin all update --no-progress --prefer-dist --prefer-lowest --prefer-stable && vendor/bin/tester ./tests",
+		"tests:highest" : "composer update --no-progress --prefer-dist --prefer-stable && composer bin all update --no-progress --prefer-dist --prefer-stable && vendor/bin/tester ./tests"
+	}
+}

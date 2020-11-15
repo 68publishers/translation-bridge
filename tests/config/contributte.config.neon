@@ -1,0 +1,7 @@
+extensions:
+	translation: Contributte\Translation\DI\TranslationExtension
+	translation_bridge: SixtyEightPublishers\TranslationBridge\Bridge\Contributte\DI\TranslationBridgeExtension
+
+translation:
+	locales:
+		default: en

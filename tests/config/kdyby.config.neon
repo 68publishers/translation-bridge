@@ -1,0 +1,6 @@
+extensions:
+	translation: Kdyby\Translation\DI\TranslationExtension
+	translation_bridge: SixtyEightPublishers\TranslationBridge\Bridge\Kdyby\DI\TranslationBridgeExtension
+
+translation:
+	default: en

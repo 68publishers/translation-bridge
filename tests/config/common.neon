@@ -1,0 +1,8 @@
+extensions:
+	test_provider: SixtyEightPublishers\TranslationBridge\Tests\Fixtures\TestProviderExtension
+
+services:
+	- SixtyEightPublishers\TranslationBridge\Tests\Fixtures\TranslatableService
+	-
+		type: SixtyEightPublishers\TranslationBridge\Tests\Fixtures\TranslatableService
+		implement: SixtyEightPublishers\TranslationBridge\Tests\Fixtures\TranslatableServiceFactoryInterface
