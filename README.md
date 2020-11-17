@@ -1,11 +1,11 @@
 # Translation bridge
 
-A package contains bridges for the most used integrations of [synfomy/translation](https://symfony.com/doc/current/translation.html) into [Nette Framework](https://nette.org):
+A package contains bridges for the most used integrations of [symfomy/translation](https://symfony.com/doc/current/translation.html) into [Nette Framework](https://nette.org):
 
 - [kdyby/translations](https://github.com/Kdyby/Translation)
 - [contributte/translations](https://github.com/contributte/translation)
 
-Why? because we want to keep our bundles independent from specific integrations so applications can use any of the integrations mentioned above and will be still compatible with our bundles.
+Why? Because we want to keep our bundles independent from specific integrations so applications can use any of the integrations mentioned above and will be still compatible with our bundles.
 
 ## Installation
 
@@ -19,10 +19,10 @@ $ composer require 68publishers/translation-bridge
 
 ```neon
 extensions:
-    # if you are using kdyby/translation:
+    # If you are using kdyby/translation:
     translation_bridge: SixtyEightPublishers\TranslationBridge\Bridge\Kdyby\DI\TranslationBridgeExtension
 
-    # of if you are using contributte/translation:
+    # Or if you are using contributte/translation:
     translation_bridge: SixtyEightPublishers\TranslationBridge\Bridge\Contributte\DI\TranslationBridgeExtension
 ```
 
