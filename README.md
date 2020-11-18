@@ -1,5 +1,11 @@
 # Translation bridge
 
+[![Build Status][ico-travis]][link-travis]
+[![Quality Score][ico-code-quality]][link-code-quality]
+[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
+[![Total Downloads][ico-downloads]][link-downloads]
+[![Latest Version on Packagist][ico-version]][link-packagist]
+
 A package contains bridges for the most used integrations of [symfomy/translation](https://symfony.com/doc/current/translation.html) into [Nette Framework](https://nette.org):
 
 - [kdyby/translations](https://github.com/Kdyby/Translation)
@@ -130,3 +136,15 @@ and
 ```bash
 $ composer run tests
 ```
+
+[ico-version]: https://img.shields.io/packagist/v/68publishers/translation-bridge.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/68publishers/translation-bridge/master.svg?style=flat-square
+[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/68publishers/translation-bridge.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/scrutinizer/g/68publishers/translation-bridge.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/68publishers/translation-bridge.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/68publishers/translation-bridge
+[link-travis]: https://travis-ci.org/68publishers/translation-bridge
+[link-scrutinizer]: https://scrutinizer-ci.com/g/68publishers/translation-bridge/code-structure
+[link-code-quality]: https://scrutinizer-ci.com/g/68publishers/translation-bridge
+[link-downloads]: https://packagist.org/packages/68publishers/translation-bridge
