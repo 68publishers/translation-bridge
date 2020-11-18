@@ -90,6 +90,33 @@ final class FooService
 }
 ```
 
+### Translator Locale
+
+The Container contains an service of type `TranslatorLocalizerInterface` for manipulating with the Translator locale.
+
+```php
+use SixtyEightPublishers\TranslationBridge\Localization\TranslatorLocalizerInterface;
+
+final class FooService 
+{
+    private $localizer;
+
+    public function __construct(TranslatorLocalizerInterface $localizer) 
+    {
+        $this->localizer = $localizer;
+    }
+
+    public function doSomething(): void
+    {
+        # Get the current locale
+        $locale = $this->localizer->getLocale();
+
+        # Set the new locale
+        $this->localizer->setLocale('cs_CZ');
+    }
+}
+```
+
 ## Contributing
 
 Before committing any changes, don't forget to run
