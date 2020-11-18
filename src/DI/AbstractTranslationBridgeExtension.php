@@ -10,20 +10,28 @@ use Nette\DI\Definitions\Definition;
 use Nette\DI\Definitions\FactoryDefinition;
 use SixtyEightPublishers\TranslationBridge\TranslatorAwareInterface;
 use SixtyEightPublishers\TranslationBridge\PrefixedTranslatorFactoryInterface;
+use SixtyEightPublishers\TranslationBridge\Localization\TranslatorLocalizerInterface;
 
 abstract class AbstractTranslationBridgeExtension extends CompilerExtension
 {
 	/** @var \Nette\DI\Definitions\ServiceDefinition|NULL */
 	protected $prefixedTranslatorFactoryDefinition;
 
+	/** @var \Nette\DI\Definitions\ServiceDefinition|NULL */
+	protected $translatorLocalizerDefinition;
+
 	/**
 	 * {@inheritDoc}
 	 */
 	public function loadConfiguration(): void
 	{
-		$this->prefixedTranslatorFactoryDefinition = $this->getContainerBuilder()
-			->addDefinition($this->prefix('prefixed_translator_factory'))
+		$builder = $this->getContainerBuilder();
+
+		$this->prefixedTranslatorFactoryDefinition = $builder->addDefinition($this->prefix('prefixed_translator_factory'))
 			->setType(PrefixedTranslatorFactoryInterface::class);
+
+		$this->translatorLocalizerDefinition = $builder->addDefinition($this->prefix('translator_localizer'))
+			->setType(TranslatorLocalizerInterface::class);
 	}
 
 	/**

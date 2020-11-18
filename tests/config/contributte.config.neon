@@ -5,3 +5,7 @@ extensions:
 translation:
 	locales:
 		default: en
+		whitelist:
+			- en
+			- en_US
+			- cs_CZ
