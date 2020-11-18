@@ -9,8 +9,10 @@ use Tester\TestCase;
 use Nette\Configurator;
 use Nette\DI\Container;
 use Nette\Localization\ITranslator;
+use SixtyEightPublishers\TranslationBridge\Exception\InvalidLocaleException;
 use SixtyEightPublishers\TranslationBridge\PrefixedTranslatorFactoryInterface;
 use SixtyEightPublishers\TranslationBridge\Tests\Fixtures\TranslatableService;
+use SixtyEightPublishers\TranslationBridge\Localization\TranslatorLocalizerInterface;
 use SixtyEightPublishers\TranslationBridge\Tests\Fixtures\TranslatableServiceFactoryInterface;
 
 abstract class AbstractTranslationBridgeExtensionTestCase extends TestCase
@@ -65,5 +67,20 @@ abstract class AbstractTranslationBridgeExtensionTestCase extends TestCase
 		$prefixedTranslator = $prefixedTranslatorFactory->create('test_provider');
 
 		Assert::same('bar', $prefixedTranslator->translate('foo'));
+
+		# test translator localizer
+		$translatorLocalizer = $container->getByType(TranslatorLocalizerInterface::class);
+
+		Assert::same('en', $translatorLocalizer->getLocale()); # default
+
+		Assert::noError(static function () use ($translatorLocalizer) {
+			$translatorLocalizer->setLocale('cs_CZ');
+		});
+
+		Assert::same('cs_CZ', $translatorLocalizer->getLocale());
+
+		Assert::throws(static function () use ($translatorLocalizer) {
+			$translatorLocalizer->setLocale('{invalid}');
+		}, InvalidLocaleException::class);
 	}
 }
