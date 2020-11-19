@@ -45,7 +45,6 @@ final class TranslationBridgeExtension extends AbstractTranslationBridgeExtensio
 		$builder->addDefinition($this->prefix('locale_resolver'))
 			->setType(LocaleResolver::class)
 			->setArguments([
-				sprintf('@%s.localeResolver', $this->getIntegratedExtensionName()),
 				$this->translatorLocaleResolverDefinition,
 			]);
 	}
