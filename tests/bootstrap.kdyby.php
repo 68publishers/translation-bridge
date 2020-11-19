@@ -7,4 +7,4 @@ if (@!include __DIR__ . '/../vendor-bin/kdyby/vendor/autoload.php') {
 	exit(1);
 }
 
-require __DIR__ . '/bootstrap.php';
+require __DIR__ . '/setup.php';

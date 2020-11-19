@@ -1,0 +1,5 @@
+parameters:
+	locale: fr_FR
+
+extensions:
+	test_translator_locale_resolver_provider: SixtyEightPublishers\TranslationBridge\Tests\Fixtures\TranslatorLocaleResolverProviderExtension(%locale%)

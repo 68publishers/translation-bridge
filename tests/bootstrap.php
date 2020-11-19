@@ -2,12 +2,9 @@
 
 declare(strict_types=1);
 
-Tester\Environment::setup();
-
-if (!defined('TEMP_PATH')) {
-	define('TEMP_PATH', __DIR__ . '/temp');
+if (@!include __DIR__ . '/../vendor/autoload.php') {
+	echo 'Please run `composer install && composer bin all install`';
+	exit(1);
 }
 
-if (!defined('CONFIG_DIR')) {
-	define('CONFIG_DIR', __DIR__ . '/config');
-}
+require __DIR__ . '/setup.php';

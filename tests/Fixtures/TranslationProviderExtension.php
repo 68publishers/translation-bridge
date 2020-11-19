@@ -7,7 +7,7 @@ namespace SixtyEightPublishers\TranslationBridge\Tests\Fixtures;
 use Nette\DI\CompilerExtension;
 use SixtyEightPublishers\TranslationBridge\DI\TranslationProviderInterface;
 
-final class TestProviderExtension extends CompilerExtension implements TranslationProviderInterface
+final class TranslationProviderExtension extends CompilerExtension implements TranslationProviderInterface
 {
 	/**
 	 * {@inheritDoc}
