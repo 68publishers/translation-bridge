@@ -85,11 +85,11 @@ The Container contains an autowired service of type `PrefixedTranslatorFactoryIn
 
 use SixtyEightPublishers\TranslationBridge\PrefixedTranslatorFactoryInterface;
 
-final class FooService 
+final class FooService
 {
     private $translator;
 
-    public function __construct(PrefixedTranslatorFactoryInterface $prefixedTranslatorFactory) 
+    public function __construct(PrefixedTranslatorFactoryInterface $prefixedTranslatorFactory)
     {
         $this->translator = $prefixedTranslatorFactory->create('FooService');
     }
@@ -103,11 +103,11 @@ The Container contains an service of type `TranslatorLocalizerInterface` for man
 ```php
 use SixtyEightPublishers\TranslationBridge\Localization\TranslatorLocalizerInterface;
 
-final class FooService 
+final class FooService
 {
     private $localizer;
 
-    public function __construct(TranslatorLocalizerInterface $localizer) 
+    public function __construct(TranslatorLocalizerInterface $localizer)
     {
         $this->localizer = $localizer;
     }
@@ -148,7 +148,7 @@ They are sorted by priority in descending order so a Resolver with the highest p
 Resolvers defined in `Kdyby` and `Contributte` integrations are automatically wrapped and provided into the main Resolver. Their priority is always 10.
 
 ```neon
-    services: 
+    services:
         -
             type: MyLocaleResolver
             tags:
