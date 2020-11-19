@@ -1,10 +1,10 @@
 {
-    "require": {
-        "kdyby/translation": "^3.0",
-        "theofidry/composer-inheritance-plugin": "^1.0"
-    },
-    "config": {
-        "bin-dir": "bin",
-        "sort-packages": true
-    }
+	"require": {
+		"kdyby/translation": "^3.0",
+		"theofidry/composer-inheritance-plugin": "^1.0"
+	},
+	"config": {
+		"bin-dir": "bin",
+		"sort-packages": true
+	}
 }

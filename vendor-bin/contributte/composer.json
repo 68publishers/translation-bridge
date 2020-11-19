@@ -1,10 +1,10 @@
 {
-    "require": {
-        "contributte/translation": "^0.4",
-        "theofidry/composer-inheritance-plugin": "^1.0"
-    },
-    "config": {
-        "bin-dir": "bin",
-        "sort-packages": true
-    }
+	"require": {
+		"contributte/translation": "^0.4",
+		"theofidry/composer-inheritance-plugin": "^1.0"
+	},
+	"config": {
+		"bin-dir": "bin",
+		"sort-packages": true
+	}
 }
