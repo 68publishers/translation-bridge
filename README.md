@@ -96,7 +96,7 @@ final class FooService
 }
 ```
 
-### Translator Locale
+### Translator Localizer
 
 The Container contains an service of type `TranslatorLocalizerInterface` for manipulating with the Translator locale.
 
@@ -119,6 +119,58 @@ final class FooService
 
         # Set the new locale
         $this->localizer->setLocale('cs_CZ');
+    }
+}
+```
+
+### Translator Locale Resolver
+
+The Translator's locale can be resolved with own resolvers like this:
+
+```php
+<?php
+
+use Nette\Localization\ITranslator;
+use SixtyEightPublishers\TranslationBridge\Localization\TranslatorLocaleResolverInterface;
+
+final class MyLocaleResolver implements TranslatorLocaleResolverInterface
+{
+    public function resolveLocale(ITranslator $translator) : ?string
+    {
+        # return a valid locale or NULL
+    }
+}
+```
+
+Resolvers can be registered manually with a tag `68publishers.translation_bridge.translator_locale_resolver` or through a `CompilerExtension` and each resolver can have priority.
+They are sorted by priority in descending order so a Resolver with the highest priority will be called first. A default priority is 0.
+
+Resolvers defined in `Kdyby` and `Contributte` integrations are automatically wrapped and provided into the main Resolver. Their priority is always 10.
+
+```neon
+    services: 
+        -
+            type: MyLocaleResolver
+            tags:
+                68publishers.translation_bridge.translator_locale_resolver: 15
+```
+
+Or
+
+```php
+<?php
+
+use Nette\DI\CompilerExtension;
+use SixtyEightPublishers\TranslationBridge\DI\TranslatorLocaleResolver;
+use SixtyEightPublishers\TranslationBridge\DI\TranslatorLocaleResolverProviderInterface;
+
+final class FooBundleExtension extends CompilerExtension implements TranslatorLocaleResolverProviderInterface
+{
+    public function getTranslatorLocaleResolvers(): array
+    {
+        return [
+            new TranslatorLocaleResolver(MyLocaleResolver::class, 15),
+        ];
     }
 }
 ```

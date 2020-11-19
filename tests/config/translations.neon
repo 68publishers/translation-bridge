@@ -1,0 +1,2 @@
+extensions:
+	test_translation_provider: SixtyEightPublishers\TranslationBridge\Tests\Fixtures\TranslationProviderExtension

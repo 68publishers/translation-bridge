@@ -18,60 +18,30 @@ use SixtyEightPublishers\TranslationBridge\Tests\Fixtures\TranslatableServiceFac
 abstract class AbstractTranslationBridgeExtensionTestCase extends TestCase
 {
 	/**
-	 * @param \Nette\Configurator $configurator
+	 * @return void
 	 */
-	abstract protected function setupContainer(Configurator $configurator): void;
-
-	/**
-	 * @return \Nette\DI\Container
-	 */
-	protected function createContainer(): Container
+	public function testTranslations(): void
 	{
-		$configurator = new Configurator();
+		$container = $this->createContainer(CONFIG_DIR . '/translations.neon');
+		$translator = $container->getByType(ITranslator::class);
 
-		$configurator->setTempDirectory(TEMP_PATH);
-		$configurator->addConfig(CONFIG_DIR . '/common.neon');
+		Assert::same('bar', $translator->translate('test_provider.foo'));
 
-		$this->setupContainer($configurator);
+		$prefixedTranslatorFactory = $container->getByType(PrefixedTranslatorFactoryInterface::class);
+		$prefixedTranslator = $prefixedTranslatorFactory->create('test_provider');
 
-		return $configurator->createContainer();
+		Assert::same('bar', $prefixedTranslator->translate('foo'));
 	}
 
 	/**
 	 * @return void
 	 */
-	public function testCompilerExtensionIntegration(): void
+	public function testLocalization(): void
 	{
-		/** @var \Nette\DI\Container|NULL $container */
-		$container = NULL;
-
-		# create container
-		Assert::noError(function () use (&$container) {
-			$container = $this->createContainer();
-		});
-
-		# test provided translations
-		$translator = $container->getByType(ITranslator::class);
-
-		Assert::same('bar', $translator->translate('test_provider.foo'));
-
-		# test translator aware
-		$service = $container->getByType(TranslatableService::class);
-		$serviceFactory = $container->getByType(TranslatableServiceFactoryInterface::class);
-
-		Assert::type(ITranslator::class, $service->getTranslator());
-		Assert::type(ITranslator::class, $serviceFactory->create()->getTranslator());
-
-		# test prefixed translator factory
-		$prefixedTranslatorFactory = $container->getByType(PrefixedTranslatorFactoryInterface::class);
-		$prefixedTranslator = $prefixedTranslatorFactory->create('test_provider');
-
-		Assert::same('bar', $prefixedTranslator->translate('foo'));
-
-		# test translator localizer
+		$container = $this->createContainer(CONFIG_DIR . '/localization.neon');
 		$translatorLocalizer = $container->getByType(TranslatorLocalizerInterface::class);
 
-		Assert::same('en', $translatorLocalizer->getLocale()); # default
+		Assert::same('fr_FR', $translatorLocalizer->getLocale()); # resolved
 
 		Assert::noError(static function () use ($translatorLocalizer) {
 			$translatorLocalizer->setLocale('cs_CZ');
@@ -82,5 +52,51 @@ abstract class AbstractTranslationBridgeExtensionTestCase extends TestCase
 		Assert::throws(static function () use ($translatorLocalizer) {
 			$translatorLocalizer->setLocale('{invalid}');
 		}, InvalidLocaleException::class);
+	}
+
+	/**
+	 * @return void
+	 */
+	public function testTranslatorAware(): void
+	{
+		$container = $this->createContainer(CONFIG_DIR . '/translator-aware.neon');
+		$service = $container->getByType(TranslatableService::class);
+		$serviceFactory = $container->getByType(TranslatableServiceFactoryInterface::class);
+
+		Assert::type(ITranslator::class, $service->getTranslator());
+		Assert::type(ITranslator::class, $serviceFactory->create()->getTranslator());
+	}
+
+	/**
+	 * @param \Nette\Configurator $configurator
+	 */
+	abstract protected function setupContainer(Configurator $configurator): void;
+
+	/**
+	 * @param string|NULL $config
+	 *
+	 * @return \Nette\DI\Container
+	 */
+	protected function createContainer(?string $config = NULL): Container
+	{
+		$configurator = new Configurator();
+
+		$configurator->setTempDirectory(TEMP_PATH);
+
+		if (NULL !== $config) {
+			$configurator->addConfig($config);
+		}
+
+		$this->setupContainer($configurator);
+
+		/** @var \Nette\DI\Container|NULL $container */
+		$container = NULL;
+
+		# create container
+		Assert::noError(static function () use (&$container, $configurator) {
+			$container = $configurator->createContainer();
+		});
+
+		return $container;
 	}
 }

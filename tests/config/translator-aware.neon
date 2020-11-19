@@ -1,6 +1,3 @@
-extensions:
-	test_provider: SixtyEightPublishers\TranslationBridge\Tests\Fixtures\TestProviderExtension
-
 services:
 	- SixtyEightPublishers\TranslationBridge\Tests\Fixtures\TranslatableService
 	-

@@ -29,7 +29,7 @@ class TranslatorLocalizerTestCase extends TestCase
 	/**
 	 * @return void
 	 */
-	public function testLocaleIsReturned() : void
+	public function testLocaleIsReturned(): void
 	{
 		$localeAware = Mockery::mock(Translator::class);
 		$localizer = new TranslatorLocalizer($localeAware);
@@ -44,7 +44,7 @@ class TranslatorLocalizerTestCase extends TestCase
 	/**
 	 * @return void
 	 */
-	public function testSetLocale() : void
+	public function testSetLocale(): void
 	{
 		$localeAware = Mockery::mock(Translator::class);
 		$localizer = new TranslatorLocalizer($localeAware);
