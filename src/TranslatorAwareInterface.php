@@ -9,9 +9,10 @@ use Nette\Localization\ITranslator;
 interface TranslatorAwareInterface
 {
 	/**
-	 * @param \Nette\Localization\ITranslator $translator
+	 * @param \Nette\Localization\ITranslator                                                 $translator
+	 * @param \SixtyEightPublishers\TranslationBridge\PrefixedTranslatorFactoryInterface|NULL $prefixedTranslatorFactory
 	 *
 	 * @return void
 	 */
-	public function setTranslator(ITranslator $translator): void;
+	public function setTranslator(ITranslator $translator, ?PrefixedTranslatorFactoryInterface $prefixedTranslatorFactory = NULL): void;
 }

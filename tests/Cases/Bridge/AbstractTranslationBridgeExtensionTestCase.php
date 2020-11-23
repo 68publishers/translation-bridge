@@ -62,9 +62,12 @@ abstract class AbstractTranslationBridgeExtensionTestCase extends TestCase
 		$container = $this->createContainer(CONFIG_DIR . '/translator-aware.neon');
 		$service = $container->getByType(TranslatableService::class);
 		$serviceFactory = $container->getByType(TranslatableServiceFactoryInterface::class);
+		$service2 = $serviceFactory->create();
 
 		Assert::type(ITranslator::class, $service->getTranslator());
-		Assert::type(ITranslator::class, $serviceFactory->create()->getTranslator());
+		Assert::type(ITranslator::class, $service2->getTranslator());
+		Assert::type(ITranslator::class, $service->getPrefixedTranslator());
+		Assert::type(ITranslator::class, $service2->getPrefixedTranslator());
 	}
 
 	/**

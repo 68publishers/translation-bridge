@@ -83,6 +83,9 @@ abstract class AbstractTranslationBridgeExtension extends CompilerExtension
 		}
 
 		$translator = $builder->getDefinition($translator);
+		$prefixedTranslatorFactory = $builder->getByType(PrefixedTranslatorFactoryInterface::class, FALSE);
+		$prefixedTranslatorFactory = NULL !== $prefixedTranslatorFactory ? $builder->getDefinition($prefixedTranslatorFactory) : NULL;
+
 		$definitions = array_filter($builder->getDefinitions(), static function (Definition $def): bool {
 			return is_a($def->getType(), TranslatorAwareInterface::class, TRUE) || ($def instanceof FactoryDefinition && is_a($def->getResultType(), TranslatorAwareInterface::class, TRUE));
 		});
@@ -93,7 +96,8 @@ abstract class AbstractTranslationBridgeExtension extends CompilerExtension
 			}
 
 			$definition->addSetup('setTranslator', [
-				'translator' => $translator,
+				$translator,
+				$prefixedTranslatorFactory,
 			]);
 		}
 	}
