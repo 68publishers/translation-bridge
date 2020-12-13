@@ -8,7 +8,6 @@ use Mockery;
 use Tester\Assert;
 use Tester\TestCase;
 use Symfony\Component\Translation\Translator;
-use Symfony\Component\Translation\Exception\InvalidArgumentException;
 use SixtyEightPublishers\TranslationBridge\Exception\InvalidLocaleException;
 use SixtyEightPublishers\TranslationBridge\Bridge\SymfonyTranslation\Localization\TranslatorLocalizer;
 
@@ -16,6 +15,22 @@ require __DIR__ . '/../../../../bootstrap.symfony-translation.php';
 
 class TranslatorLocalizerTestCase extends TestCase
 {
+	/** @var \SixtyEightPublishers\TranslationBridge\Localization\TranslatorLocalizerInterface|NULL */
+	private $localizer;
+
+	/**
+	 * @return void
+	 */
+	protected function setUp(): void
+	{
+		parent::setUp();
+
+		$translator = new Translator('cs_CZ');
+		$this->localizer = new TranslatorLocalizer($translator);
+
+		$translator->setFallbackLocales(['en_US']);
+	}
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -29,16 +44,10 @@ class TranslatorLocalizerTestCase extends TestCase
 	/**
 	 * @return void
 	 */
-	public function testLocaleIsReturned(): void
+	public function testLocaleAndFallbackAreReturned(): void
 	{
-		$localeAware = Mockery::mock(Translator::class);
-		$localizer = new TranslatorLocalizer($localeAware);
-
-		$localeAware->shouldReceive('getLocale')
-			->once()
-			->andReturn('en_US');
-
-		Assert::same('en_US', $localizer->getLocale());
+		Assert::same('cs_CZ', $this->localizer->getLocale());
+		Assert::same(['en_US'], $this->localizer->getFallbackLocales());
 	}
 
 	/**
@@ -46,25 +55,12 @@ class TranslatorLocalizerTestCase extends TestCase
 	 */
 	public function testSetLocale(): void
 	{
-		$localeAware = Mockery::mock(Translator::class);
-		$localizer = new TranslatorLocalizer($localeAware);
-
-		$localeAware->shouldReceive('setLocale')
-			->once()
-			->with('cs_CZ')
-			->andReturnNull();
-
-		$localeAware->shouldReceive('setLocale')
-			->once()
-			->with('{invalid}')
-			->andThrow(new InvalidArgumentException());
-
-		Assert::noError(static function () use ($localizer) {
-			$localizer->setLocale('cs_CZ');
+		Assert::noError(function () {
+			$this->localizer->setLocale('en_US');
 		});
 
-		Assert::throws(static function () use ($localizer) {
-			$localizer->setLocale('{invalid}');
+		Assert::throws(function () {
+			$this->localizer->setLocale('{invalid}');
 		}, InvalidLocaleException::class, 'Invalid locale {invalid}.');
 	}
 }

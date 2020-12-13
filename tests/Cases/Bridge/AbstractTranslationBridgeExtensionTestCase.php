@@ -23,7 +23,7 @@ abstract class AbstractTranslationBridgeExtensionTestCase extends TestCase
 	public function testTranslations(): void
 	{
 		$container = $this->createContainer(CONFIG_DIR . '/translations.neon');
-		$translator = $container->getByType(ITranslator::class);
+		$translator = $this->getTranslatorService($container);
 
 		Assert::same('bar', $translator->translate('test_provider.foo'));
 
@@ -74,6 +74,13 @@ abstract class AbstractTranslationBridgeExtensionTestCase extends TestCase
 	 * @param \Nette\Configurator $configurator
 	 */
 	abstract protected function setupContainer(Configurator $configurator): void;
+
+	/**
+	 * @param \Nette\DI\Container $container
+	 *
+	 * @return \Nette\Localization\ITranslator
+	 */
+	abstract protected function getTranslatorService(Container $container): ITranslator;
 
 	/**
 	 * @param string|NULL $config

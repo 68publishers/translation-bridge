@@ -36,7 +36,7 @@ jobs:
           - travis_retry composer install --no-progress --prefer-dist
           - travis_retry composer bin all install --no-progress --prefer-dist
         script:
-          - vendor/bin/tester -p phpdbg tests -s --coverage ./coverage.xml --coverage-src ./src -d zend_extension=xdebug.so
+          - vendor/bin/tester -p phpdbg tests -s --coverage ./coverage.xml --coverage-src ./src
         after_script:
           - wget https://scrutinizer-ci.com/ocular.phar
           - php ocular.phar code-coverage:upload --format=php-clover coverage.xml

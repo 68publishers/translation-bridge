@@ -41,4 +41,12 @@ final class TranslatorLocalizer implements TranslatorLocalizerInterface
 	{
 		return $this->translator->getLocale();
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public function getFallbackLocales(): array
+	{
+		return $this->translator->getFallbackLocales();
+	}
 }
