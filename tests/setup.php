@@ -11,3 +11,5 @@ if (!defined('TEMP_PATH')) {
 if (!defined('CONFIG_DIR')) {
 	define('CONFIG_DIR', __DIR__ . '/config');
 }
+
+error_reporting(~E_USER_DEPRECATED);

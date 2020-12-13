@@ -18,4 +18,9 @@ interface TranslatorLocalizerInterface
 	 * @return string
 	 */
 	public function getLocale(): string;
+
+	/**
+	 * @return string[]
+	 */
+	public function getFallbackLocales(): array;
 }
