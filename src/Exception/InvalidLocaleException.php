@@ -5,19 +5,15 @@ declare(strict_types=1);
 namespace SixtyEightPublishers\TranslationBridge\Exception;
 
 use Throwable;
+use InvalidArgumentException;
+use function sprintf;
 
 final class InvalidLocaleException extends InvalidArgumentException
 {
-	/**
-	 * @param string          $locale
-	 * @param \Throwable|NULL $previous
-	 *
-	 * @return \SixtyEightPublishers\TranslationBridge\Exception\InvalidLocaleException
-	 */
-	public static function create(string $locale, ?Throwable $previous = NULL): self
+	public static function create(string $locale, ?Throwable $previous = null): self
 	{
-		return new static(sprintf(
-			'Invalid locale %s.',
+		return new self(sprintf(
+			'Invalid locale "%s".',
 			$locale
 		), 0, $previous);
 	}

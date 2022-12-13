@@ -1,10 +1,13 @@
 {
 	"require": {
-		"contributte/translation": "^0.4",
-		"theofidry/composer-inheritance-plugin": "^1.0"
+		"contributte/translation": "^2.0",
+		"theofidry/composer-inheritance-plugin": "^1.2"
 	},
 	"config": {
-		"bin-dir": "bin",
+		"allow-plugins": {
+			"theofidry/composer-inheritance-plugin": true,
+			"wikimedia/composer-merge-plugin": true
+		},
 		"sort-packages": true
 	}
 }

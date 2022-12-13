@@ -4,26 +4,18 @@ declare(strict_types=1);
 
 namespace SixtyEightPublishers\TranslationBridge\Bridge\Contributte;
 
-use Nette\Localization\ITranslator;
+use Nette\Localization\Translator;
+use Contributte\Translation\Translator as ContributteTranslator;
 use SixtyEightPublishers\TranslationBridge\PrefixedTranslatorFactoryInterface;
 
 final class PrefixedTranslatorFactory implements PrefixedTranslatorFactoryInterface
 {
-	/** @var \Contributte\Translation\Translator|\Nette\Localization\ITranslator  */
-	private $translator;
-
-	/**
-	 * @param \Nette\Localization\ITranslator|\Contributte\Translation\Translator $translator
-	 */
-	public function __construct(ITranslator $translator)
-	{
-		$this->translator = $translator;
+	public function __construct(
+		private readonly ContributteTranslator $translator
+	) {
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function create(string $prefix): ITranslator
+	public function create(string $prefix): Translator
 	{
 		return $this->translator->createPrefixedTranslator($prefix);
 	}

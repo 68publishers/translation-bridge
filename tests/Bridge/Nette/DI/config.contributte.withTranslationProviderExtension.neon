@@ -1,0 +1,5 @@
+includes:
+	- config.contributte.neon
+
+extensions:
+	test_extension: SixtyEightPublishers\TranslationBridge\Tests\Fixtures\TranslationProviderExtension
