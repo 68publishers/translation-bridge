@@ -4,14 +4,9 @@ declare(strict_types=1);
 
 namespace SixtyEightPublishers\TranslationBridge\Localization;
 
-use Nette\Localization\ITranslator;
+use Nette\Localization\Translator;
 
 interface TranslatorLocaleResolverInterface
 {
-	/**
-	 * @param \Nette\Localization\ITranslator $translator
-	 *
-	 * @return string|NULL
-	 */
-	public function resolveLocale(ITranslator $translator): ?string;
+	public function resolveLocale(Translator $translator): ?string;
 }

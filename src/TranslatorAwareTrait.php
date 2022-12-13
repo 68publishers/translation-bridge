@@ -4,53 +4,40 @@ declare(strict_types=1);
 
 namespace SixtyEightPublishers\TranslationBridge;
 
-use Nette\Localization\ITranslator;
-use SixtyEightPublishers\TranslationBridge\Exception\RuntimeException;
+use RuntimeException;
+use Nette\Localization\Translator;
+use function sprintf;
+use function str_replace;
 
 trait TranslatorAwareTrait
 {
-	/** @var \Nette\Localization\ITranslator|NULL */
-	protected $translator;
+	protected Translator $translator;
 
-	/** @var \Nette\Localization\ITranslator|NULL */
-	protected $prefixedTranslator;
+	protected ?Translator $prefixedTranslator = null;
 
-	/** @var \SixtyEightPublishers\TranslationBridge\PrefixedTranslatorFactoryInterface|NULL */
-	private $prefixedTranslatorFactory;
+	private ?PrefixedTranslatorFactoryInterface $prefixedTranslatorFactory = null;
 
-	/**
-	 * @param \Nette\Localization\ITranslator                                                 $translator
-	 * @param \SixtyEightPublishers\TranslationBridge\PrefixedTranslatorFactoryInterface|null $prefixedTranslatorFactory
-	 *
-	 * @return void
-	 */
-	public function setTranslator(ITranslator $translator, ?PrefixedTranslatorFactoryInterface $prefixedTranslatorFactory = NULL): void
+	public function setTranslator(Translator $translator, ?PrefixedTranslatorFactoryInterface $prefixedTranslatorFactory = null): void
 	{
 		$this->translator = $translator;
 
-		if (NULL !== $prefixedTranslatorFactory) {
+		if (null !== $prefixedTranslatorFactory) {
 			$this->prefixedTranslatorFactory = $prefixedTranslatorFactory;
 		}
 	}
 
-	/**
-	 * @return \Nette\Localization\ITranslator
-	 */
-	public function getTranslator(): ITranslator
+	public function getTranslator(): Translator
 	{
 		return $this->translator;
 	}
 
-	/**
-	 * @return \Nette\Localization\ITranslator
-	 */
-	public function getPrefixedTranslator(): ITranslator
+	public function getPrefixedTranslator(): Translator
 	{
-		if (NULL !== $this->prefixedTranslator) {
+		if (null !== $this->prefixedTranslator) {
 			return $this->prefixedTranslator;
 		}
 
-		if (NULL === $this->prefixedTranslatorFactory) {
+		if (null === $this->prefixedTranslatorFactory) {
 			throw new RuntimeException(sprintf(
 				'Please set prefixed translator factory through method %s::setTranslator().',
 				static::class
@@ -60,9 +47,6 @@ trait TranslatorAwareTrait
 		return $this->prefixedTranslator = $this->prefixedTranslatorFactory->create($this->createTranslatorPrefix());
 	}
 
-	/**
-	 * @return string
-	 */
 	protected function createTranslatorPrefix(): string
 	{
 		return str_replace('\\', '_', static::class);

@@ -1,0 +1,5 @@
+includes:
+	- config.contributte.neon
+
+services:
+	- SixtyEightPublishers\TranslationBridge\Tests\Fixtures\StaticLocaleResolver(de)

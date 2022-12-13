@@ -1,0 +1,2 @@
+extensions:
+	bridge: SixtyEightPublishers\TranslationBridge\Bridge\Nette\DI\ContributteTranslationBridgeExtension

@@ -4,34 +4,31 @@ declare(strict_types=1);
 
 namespace SixtyEightPublishers\TranslationBridge\Localization;
 
-use Nette\Localization\ITranslator;
+use Nette\Localization\Translator;
 
 final class TranslatorLocaleResolverRegistry implements TranslatorLocaleResolverInterface
 {
-	/** @var \SixtyEightPublishers\TranslationBridge\Localization\TranslatorLocaleResolverInterface[] */
-	private $resolvers;
+	/** @var array<TranslatorLocaleResolverInterface> */
+	private array $resolvers;
 
 	/**
-	 * @param \SixtyEightPublishers\TranslationBridge\Localization\TranslatorLocaleResolverInterface[] $resolvers
+	 * @param array<TranslatorLocaleResolverInterface> $resolvers
 	 */
-	public function __construct(array $resolvers)
+	public function __construct(array $resolvers = [])
 	{
-		$this->resolvers = (static function (TranslatorLocaleResolverInterface ...$resolvers): array {
-			return $resolvers;
-		})(...$resolvers);
+		$this->resolvers = (static fn (TranslatorLocaleResolverInterface ...$resolvers): array => $resolvers)(...$resolvers);
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	public function resolveLocale(ITranslator $translator): ?string
+	public function resolveLocale(Translator $translator): ?string
 	{
 		foreach ($this->resolvers as $resolver) {
-			if (NULL !== ($locale = $resolver->resolveLocale($translator))) {
+			$locale = $resolver->resolveLocale($translator);
+
+			if (null !== $locale) {
 				return $locale;
 			}
 		}
 
-		return NULL;
+		return null;
 	}
 }

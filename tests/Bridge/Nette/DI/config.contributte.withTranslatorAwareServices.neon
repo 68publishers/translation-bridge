@@ -1,0 +1,6 @@
+includes:
+	- config.contributte.neon
+
+services:
+	- SixtyEightPublishers\TranslationBridge\Tests\Fixtures\TranslatableServiceWithCustomPrefix(prefix)
+	- SixtyEightPublishers\TranslationBridge\Tests\Fixtures\TranslatableServiceFactoryInterface

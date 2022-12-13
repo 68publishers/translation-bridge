@@ -1,0 +1,12 @@
+extensions:
+	translation: Contributte\Translation\DI\TranslationExtension
+	bridge: SixtyEightPublishers\TranslationBridge\Bridge\Nette\DI\ContributteTranslationBridgeExtension
+
+translation:
+	locales:
+		default: en
+		whitelist:
+			- en
+			- en_US
+			- cs_CZ
+	localeResolvers: []
