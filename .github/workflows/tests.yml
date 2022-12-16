@@ -40,10 +40,5 @@ jobs:
           composer update --no-progress --prefer-dist --prefer-lowest --prefer-stable --optimize-autoloader --quiet
           composer update --no-progress --prefer-dist --prefer-lowest --prefer-stable --optimize-autoloader --quiet --working-dir=vendor-bin/contributte
 
-      - name: Install Contributte dependencies
-        uses: ramsey/composer-install@v2
-        with:
-          working-directory: vendor-bin/contributte
-
       - name: Run tests
         run: vendor/bin/tester -C -s ./tests
