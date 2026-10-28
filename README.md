@@ -63,6 +63,8 @@ final class MyBundleExtension extends CompilerExtension implements TranslationPr
 
 All services that implement an interface `TranslatorAwareInterface` will automatically receive the Translator instance.
 
+Services that are not regular service definitions (e.g. services with `imported: true`) are skipped, call `setTranslator()` on them yourself before they use the translator.
+
 ```php
 <?php
 
@@ -155,6 +157,7 @@ services:
 
 - The minimal PHP version is 8.3.
 - The minimal versions of `nette/di` and `nette/utils` are `3.1.3` and `3.2.10` / `4.0.1` (older releases cannot be installed on PHP 8.3).
+- Translator-aware services that are not regular service definitions (e.g. `imported: true`) no longer fail the container compilation, they are skipped and must receive the translator through `setTranslator()`.
 - There are no changes in the API or the configuration.
 
 ## Contributing

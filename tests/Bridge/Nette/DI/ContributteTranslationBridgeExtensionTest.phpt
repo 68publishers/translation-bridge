@@ -9,7 +9,6 @@ use Closure;
 use Tester\Assert;
 use Tester\TestCase;
 use RuntimeException;
-use Tester\CodeCoverage\Collector;
 use Contributte\Translation\Translator as ContributteTranslator;
 use Symfony\Component\Translation\Translator as SymfonyTranslator;
 use Contributte\Translation\LocaleResolver as ContributteLocaleResolver;
@@ -134,14 +133,6 @@ final class ContributteTranslationBridgeExtensionTest extends TestCase
 			null,
 			SymfonyTranslator::class
 		));
-	}
-
-	protected function tearDown(): void
-	{
-		# save manually partial code coverage to free memory
-		if (Collector::isStarted()) {
-			Collector::save();
-		}
 	}
 }
 
