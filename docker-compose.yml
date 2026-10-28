@@ -1,20 +1,18 @@
-version: "3.7"
-
 services:
-    php81:
+    php83:
         build:
             context: .
             dockerfile: Dockerfile
-            target: php81
-        container_name: 68publishers.translation-bridge.81
+            target: php83
+        container_name: 68publishers.translation-bridge.83
         volumes:
             - .:/var/www/html:cached
 
-    php82:
+    php84:
         build:
             context: .
             dockerfile: Dockerfile
-            target: php82
-        container_name: 68publishers.translation-bridge.82
+            target: php84
+        container_name: 68publishers.translation-bridge.84
         volumes:
             - .:/var/www/html:cached

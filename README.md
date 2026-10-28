@@ -16,6 +16,12 @@ The package contains bridges for the following integrations of [symfomy/translat
 
 Why? Because we want to keep our bundles independent of specific integrations so applications can use any of the integrations mentioned above and will be still compatible with our bundles.
 
+## Requirements
+
+- PHP 8.3 or higher
+- `nette/di` 3.1.3+, `nette/utils` 3.2.10+ or 4.0.1+, `symfony/translation` 6, 7 or 8
+- `contributte/translation` 2.x for the Contributte bridge (2.0.7+ with `symfony/translation` 8)
+
 ## Installation
 
 The best way to install 68publishers/translation-bridge is using Composer:
@@ -56,6 +62,8 @@ final class MyBundleExtension extends CompilerExtension implements TranslationPr
 ### Translator Aware
 
 All services that implement an interface `TranslatorAwareInterface` will automatically receive the Translator instance.
+
+Services that are not regular service definitions (e.g. services with `imported: true`) are skipped. Call `setTranslator()` on them before they use the translator.
 
 ```php
 <?php
@@ -142,6 +150,15 @@ final class MyLocaleResolver implements TranslatorLocaleResolverInterface
 services:
 	- MyLocaleResolver
 ```
+
+## Upgrade
+
+### From 2.x to 3.0
+
+- The minimal PHP version is 8.3.
+- The minimal versions of `nette/di` and `nette/utils` are `3.1.3` and `3.2.10` / `4.0.1` (older releases cannot be installed on PHP 8.3).
+- Translator-aware services that are not regular service definitions (e.g. `imported: true`) no longer fail the container compilation, they are skipped and must receive the translator through `setTranslator()`.
+- There are no changes in the API or the configuration.
 
 ## Contributing
 

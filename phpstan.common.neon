@@ -8,4 +8,7 @@ parameters:
 		- src
 	excludePaths:
 		- src/Bridge/Contributte/*
-		- src/Bridge/Nette/DI/ContributteTranslationBridgeExtension
+		- src/Bridge/Nette/DI/ContributteTranslationBridgeExtension.php
+	ignoreErrors:
+		-
+			identifier: trait.unused

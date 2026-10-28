@@ -5,6 +5,6 @@
 docker-compose.yml export-ignore
 Dockerfile export-ignore
 Makefile export-ignore
-phpstan.neon export-ignore
+phpstan.*.neon export-ignore
 tests export-ignore
 vendor-bin export-ignore

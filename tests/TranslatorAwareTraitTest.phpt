@@ -69,6 +69,8 @@ final class TranslatorAwareTraitTest extends TestCase
 		$service->setTranslator($translator, $prefixedTranslatorFactory);
 
 		Assert::same($prefixedTranslator, $service->getPrefixedTranslator());
+		# the factory is called only once
+		Assert::same($prefixedTranslator, $service->getPrefixedTranslator());
 	}
 
 	public function testPrefixedTranslatorShouldBeCreatedWithCustomPrefix(): void
