@@ -1,0 +1,7 @@
+includes:
+	- config.contributte.neon
+
+services:
+	imported_service:
+		type: SixtyEightPublishers\TranslationBridge\Tests\Fixtures\TranslatableService
+		imported: true

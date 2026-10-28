@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace SixtyEightPublishers\TranslationBridge\Tests\Bridge\Nette\DI;
 
+use Error;
 use Closure;
 use Tester\Assert;
 use Tester\TestCase;
@@ -15,6 +16,7 @@ use Contributte\Translation\LocaleResolver as ContributteLocaleResolver;
 use SixtyEightPublishers\TranslationBridge\Localization\TranslatorLocalizer;
 use SixtyEightPublishers\TranslationBridge\Bridge\Contributte\LocaleResolver;
 use SixtyEightPublishers\TranslationBridge\PrefixedTranslatorFactoryInterface;
+use SixtyEightPublishers\TranslationBridge\Tests\Fixtures\TranslatableService;
 use SixtyEightPublishers\TranslationBridge\Tests\Fixtures\StaticLocaleResolver;
 use Contributte\Translation\PrefixedTranslator as ContributtePrefixedTranslator;
 use SixtyEightPublishers\TranslationBridge\Localization\TranslatorLocalizerInterface;
@@ -95,6 +97,20 @@ final class ContributteTranslationBridgeExtensionTest extends TestCase
 
 		Assert::type(ContributteTranslator::class, $service2->getTranslator());
 		Assert::type(ContributtePrefixedTranslator::class, $service2->getPrefixedTranslator());
+	}
+
+	public function testImportedTranslatorAwareServiceShouldBeSkipped(): void
+	{
+		$container = ContainerFactory::create(__DIR__ . '/config.contributte.withImportedTranslatorAwareService.neon');
+		$service = new TranslatableService();
+
+		$container->addService('imported_service', $service);
+
+		Assert::same($service, $container->getByType(TranslatableService::class));
+		Assert::exception(
+			static fn () => $service->getTranslator(),
+			Error::class,
+		);
 	}
 
 	public function testTranslationsShouldBeProvidedByAnotherCompilerExtension(): void

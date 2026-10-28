@@ -8,14 +8,12 @@ use Nette\DI\Compiler;
 use Nette\DI\CompilerExtension;
 use Nette\Localization\Translator;
 use Nette\DI\Definitions\Reference;
-use Nette\DI\Definitions\Definition;
 use Nette\DI\Definitions\FactoryDefinition;
 use Nette\DI\Definitions\ServiceDefinition;
 use SixtyEightPublishers\TranslationBridge\TranslatorAwareInterface;
 use SixtyEightPublishers\TranslationBridge\PrefixedTranslatorFactoryInterface;
 use SixtyEightPublishers\TranslationBridge\Localization\TranslatorLocaleResolverInterface;
 use function is_a;
-use function assert;
 use function array_merge;
 use function array_filter;
 use function array_values;
@@ -36,7 +34,6 @@ final class ExtensionHelper
 		$resources = [];
 
 		foreach ($this->compiler->getExtensions(TranslationProviderInterface::class) as $extension) {
-			assert($extension instanceof TranslationProviderInterface);
 			$resources[] = array_values($extension->getTranslationResources());
 		}
 
@@ -44,7 +41,7 @@ final class ExtensionHelper
 	}
 
 	/**
-	 * @return array<Definition>
+	 * @return array<string, object>
 	 */
 	public function collectLocaleResolvers(): array
 	{
@@ -58,7 +55,7 @@ final class ExtensionHelper
 
 		$definitions = array_filter(
 			$builder->getDefinitions(),
-			static fn (Definition $def): bool =>
+			static fn ($def): bool =>
 				null !== $def->getType()
 				&& (
 					is_a($def->getType(), TranslatorAwareInterface::class, true)
@@ -71,7 +68,9 @@ final class ExtensionHelper
 				$definition = $definition->getResultDefinition();
 			}
 
-			assert($definition instanceof ServiceDefinition);
+			if (!$definition instanceof ServiceDefinition) {
+				continue;
+			}
 
 			$definition->addSetup('setTranslator', [
 				new Reference(Translator::class),
