@@ -63,7 +63,7 @@ final class MyBundleExtension extends CompilerExtension implements TranslationPr
 
 All services that implement an interface `TranslatorAwareInterface` will automatically receive the Translator instance.
 
-Services that are not regular service definitions (e.g. services with `imported: true`) are skipped, call `setTranslator()` on them yourself before they use the translator.
+Services that are not regular service definitions (e.g. services with `imported: true`) are skipped. Call `setTranslator()` on them before they use the translator.
 
 ```php
 <?php
